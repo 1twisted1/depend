@@ -107,17 +107,24 @@ return function(settings)
             connection = nil
         end
     end
-
-    ------------------------------------------------
+------------------------------------------------
     -- KEYBIND TOGGLE
     ------------------------------------------------
+    settings.onToggle = function(value)
+        if value then
+            start()
+        else
+            stop()
+        end
+    end
+
     UserInputService.InputBegan:Connect(function(input, gpe)
         if gpe then return end
         if input.KeyCode ~= settings.keybind then return end
 
         settings.enabled = not settings.enabled
 
-        if gettoggle() then
+        if settings.enabled then
             start()
         else
             stop()
