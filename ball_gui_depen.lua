@@ -1,6 +1,6 @@
 return function(settings)
-    local UserInputService = game:GetService("UserInputService")
     local RunService = game:GetService("RunService")
+    local UserInputService = game:GetService("UserInputService")
     local Players = game:GetService("Players")
     local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -115,20 +115,4 @@ return function(settings)
             stop()
         end
     end
-
-    ------------------------------------------------
-    -- KEYBIND
-    ------------------------------------------------
-    UserInputService.InputBegan:Connect(function(input, gpe)
-        if gpe then return end
-        if input.KeyCode ~= settings.keybind then return end
-
-        settings.enabled = not settings.enabled
-
-        if settings.enabled then
-            start()
-        else
-            stop()
-        end
-    end)
 end
