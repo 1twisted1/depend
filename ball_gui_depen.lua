@@ -124,7 +124,7 @@ return function(settings)
 
         settings.enabled = not settings.enabled
 
-        if settings.enabled then
+        if settings.enabled and settings.value == true then
             start()
         else
             stop()
