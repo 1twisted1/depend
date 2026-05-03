@@ -20,9 +20,6 @@ return function(settings)
     local function getSpeed()
         return settings.speed
     end
-	 local function gettoggle()
-        return settings.enabled
-    end
 
     ------------------------------------------------
     -- CAMERA
@@ -71,7 +68,6 @@ return function(settings)
         print("[ON] Ball control enabled:", ball.Name)
         enableCamera(ball)
 
-        -- Request network ownership
         local changeOwner = ReplicatedStorage:FindFirstChild("ChangeOwner")
         if changeOwner then
             changeOwner:FireServer(ball)
@@ -92,7 +88,6 @@ return function(settings)
     end
 
     local function stop()
-        settings.enabled = false
         print("[OFF] Ball control disabled")
 
         local ball = getBall()
@@ -106,9 +101,12 @@ return function(settings)
             connection:Disconnect()
             connection = nil
         end
+
+        settings.enabled = false
     end
-------------------------------------------------
-    -- KEYBIND TOGGLE
+
+    ------------------------------------------------
+    -- TOGGLE BRIDGE (for GUI)
     ------------------------------------------------
     settings.onToggle = function(value)
         if value then
@@ -118,13 +116,16 @@ return function(settings)
         end
     end
 
+    ------------------------------------------------
+    -- KEYBIND
+    ------------------------------------------------
     UserInputService.InputBegan:Connect(function(input, gpe)
         if gpe then return end
         if input.KeyCode ~= settings.keybind then return end
 
         settings.enabled = not settings.enabled
 
-        if settings.enabled and settings.value == true then
+        if settings.enabled then
             start()
         else
             stop()
