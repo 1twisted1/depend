@@ -92,6 +92,7 @@ return function(settings)
     end
 
     local function stop()
+        settings.enabled = false
         print("[OFF] Ball control disabled")
 
         local ball = getBall()
